@@ -119,7 +119,7 @@ function createDirectory(){
 	ACCESS_TOKEN="$3"
 	FOLDER_ID=""
     QUERY="mimeType='application/vnd.google-apps.folder' and title='$DIRNAME'"
-    QUERY=$(echo $QUERY | sed -f ${DIR}/url_escape.sed)
+    QUERY=$(echo $QUERY | sed -f "${DIR}/google-drive-upload/url_escape.sed")
 
 	SEARCH_RESPONSE=`/usr/bin/curl \
 					--silent \
@@ -189,6 +189,7 @@ function uploadFile(){
 	# In that case content range needs to be specified.
 	log "Uploading file $FILE to google drive..."
 	curl \
+	--silent \
 	-X PUT \
 	-H "Authorization: Bearer ${ACCESS_TOKEN}" \
 	-H "Content-Type: $MIME_TYPE" \
